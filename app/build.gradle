@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
+
+    defaultConfig {
+        applicationId "pissiphany.com.androidmvp"
+        versionCode 1
+        versionName "1.0"
+
+        minSdkVersion 21
+        targetSdkVersion 24
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs += 'src/main/kotlin'
+        }
+
+        test {
+            java.srcDirs += 'src/test/kotlin'
+        }
+
+        androidTest {
+            java.srcDirs += 'src/androidTest/kotlin'
+        }
+    }
+}
+
+dependencies {
+    /** compile dependencies **/
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // android
+    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
+
+    // auto-value
+    compile "com.google.auto.value:auto-value:1.2"
+    apt "com.google.auto.value:auto-value:1.2"
+
+    // auto-parcel
+    // https://github.com/frankiesardo/auto-parcel
+    apt 'frankiesardo:auto-parcel:1.0.3'
+
+    // dagger 2
+    compile 'com.google.dagger:dagger:2.2'
+    apt "com.google.dagger:dagger-compiler:2.2"
+
+    // gson
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.4'
+
+    // kotlin
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    // retrofix
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+
+    // rxjava / rxandroid
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+
+    /** unit test dependencies **/
+    testCompile 'junit:junit:4.12'
+
+    /** instrumentation test dependencies **/
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}
+
+repositories {
+    mavenCentral()
+
+    // auto-parcel
+    maven {url "https://clojars.org/repo/"}
+}
