@@ -1,0 +1,62 @@
+buildscript {
+    ext.kotlin_version = '1.0.3'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: "net.ltgt.apt"
+apply plugin: 'java'
+apply plugin: 'kotlin'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // auto-value
+    compile 'com.google.auto.value:auto-value:1.2'
+    apt "com.google.auto.value:auto-value:1.2"
+
+    // auto-parcel
+    // https://github.com/frankiesardo/auto-parcel
+    //
+    // NOTE: using parcel here adds Android dependencies!!!
+    //
+//    apt 'frankiesardo:auto-parcel:1.0.3'
+
+    // gson
+    compile 'com.google.code.gson:gson:2.4'
+
+    // retrofix
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+
+    // rxjava
+    compile 'io.reactivex:rxjava:1.1.6'
+
+    /** unit test dependencies **/
+    testCompile 'junit:junit:4.12'
+
+    // kotlin
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+
+sourceSets {
+    main {
+        java.srcDirs = ['src/main/kotlin', 'src/main/java']
+    }
+
+    test {
+        java.srcDirs = ['src/test/kotlin']
+    }
+}

@@ -1,1 +1,1 @@
-include ':app', ':usecase', ':entity', ':presentation'
+include ':app', ':data', ':repository'
